@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-st.title('Nouvelle Prod : Comparaison Prédiction (Jour) et Réel (Fin de Mois)')
+st.markdown("<h1 style='text-align: center;'>Nouvelle Prod : Comparaison Prédiction (Jour) et Réel (Fin de Mois)</h1>", unsafe_allow_html=True)
 
 df = pd.read_csv('Pred Nvle Prod.csv')
 

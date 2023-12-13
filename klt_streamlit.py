@@ -7,7 +7,7 @@ import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
 
 # Chargement des données
-df = pd.read_csv('chemin_de_votre_fichier.csv')
+df = pd.read_csv('Pred Nvle Prod.csv')
 df['date'] = pd.to_datetime(df['date'])
 df['mois'] = df['date'].dt.strftime('%Y-%m')  # Formatage en chaîne de caractères pour une meilleure cohérence
 

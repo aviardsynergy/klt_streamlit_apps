@@ -23,8 +23,8 @@ else:
     df_filtre = df 
 
 fig, ax = plt.subplots()
-ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='N Prod', color='darkblue')
-ax.plot(df_filtre['date'], df_filtre['PRED_NPROD'], label='Pred NProd', color='orange')
+ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='Prod Réelle', color='darkblue')
+ax.plot(df_filtre['date'], df_filtre['PRED_NPROD'], label='Prédiction', color='orange')
 ax.set_xlabel('Date')
 ax.set_ylabel('Nouvelle Prod (en Millions)')
 #ax.set_title('Nouvelle Prod Réelle et Prédite')

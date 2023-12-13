@@ -46,14 +46,13 @@ st.pyplot(fig)
 categories = df_filtre['mois'].unique()
 N = len(categories)
 
-# Vérification de la présence de données avant de créer le graphique radar
 if N > 0:
     # Calcul des valeurs moyennes pour chaque mois
     avg_reel = df_filtre.groupby('mois')['REEL_NPROD'].mean().reindex(categories, fill_value=0)
     avg_pred = df_filtre.groupby('mois')['PRED_NPROD'].mean().reindex(categories, fill_value=0)
 
     # Préparation des angles pour le graphique radar
-    angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
+    angles = np.linspace(0, 2 * pi, N, endpoint=False).tolist()
     angles += angles[:1]  # Fermeture du cercle
 
     # Création du graphique radar

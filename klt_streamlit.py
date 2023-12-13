@@ -7,9 +7,12 @@ df = pd.read_csv('Pred Nvle Prod.csv')
 df['date'] = pd.to_datetime(df['PERJOU'])
 df['mois'] = df['date'].dt.to_period('M')
 
-mois_choisi = st.sidebar.selectbox('Choisissez un mois', df['mois'].unique())
-
-df_filtre = df[df['mois'] == mois_choisi]
+mois_disponibles = df['mois'].unique()
+mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois', mois_disponibles, default=mois_disponibles)
+if mois_selectionnes:
+    df_filtre = df[df['mois'].isin(mois_selectionnes)]
+else:
+    df_filtre = df
 
 fig, ax = plt.subplots()
 ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='N Prod')

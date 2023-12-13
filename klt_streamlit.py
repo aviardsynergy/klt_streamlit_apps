@@ -39,7 +39,7 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
 ax.legend()
 st.pyplot(fig)
 
-
+# Préparation des données pour le graphique radar
 categories = df_filtre['mois'].unique()
 N = len(categories)
 
@@ -56,7 +56,6 @@ if N > 0:
     # Création du graphique radar
     radar_fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
 
-
     # Tracer la première série (REEL_NPROD)
     values = avg_reel.tolist()
     values += values[:1]
@@ -69,7 +68,7 @@ if N > 0:
 
     # Ajouter les labels pour chaque axe
     ax.set_thetagrids([angle * 180/pi for angle in angles[:-1]], categories)
-    
+
     ax.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
 
     st.pyplot(radar_fig)

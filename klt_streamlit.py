@@ -65,7 +65,7 @@ def main():
     with col2:
         # Utiliser le composant download_button de Streamlit pour un design cohérent
         st.download_button(
-            label="Télécharger le CSV",
+            label="Télécharger",
             data=requests.get(csv_url).content,
             file_name="data.csv",
             mime='text/csv',

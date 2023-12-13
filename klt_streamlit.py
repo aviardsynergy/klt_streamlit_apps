@@ -9,7 +9,7 @@ from matplotlib.ticker import FuncFormatter
 def millions_formatter(x, pos):
     return f'{x / 1e6}M'
 
-st.markdown("<h3 style='text-align: center;'>Nouvelle Prod : Comparaison Prédiction (Jour) et Réel (Mois)</h3> <br>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'>Nouvelle Prod : Comparaison Prédiction (Jour) et Réel (Mois)</h2> <br>", unsafe_allow_html=True)
 
 df = pd.read_csv('Pred Nvle Prod.csv')
 
@@ -60,10 +60,8 @@ def download_csv(url):
 def main():
     st.markdown("<h1 style='text-align: center;'>Télécharger le fichier CSV</h1>", unsafe_allow_html=True)
 
-    # Centrer le bouton de téléchargement sur la page
     col1, col2, col3 = st.columns([2,1,2])
     with col2:
-        # Utiliser le composant download_button de Streamlit pour un design cohérent
         st.download_button(
             label="Télécharger",
             data=requests.get(csv_url).content,

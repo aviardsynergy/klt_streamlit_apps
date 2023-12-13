@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
+
 
 def millions_formatter(x, pos):
     return f'{x / 1e6}M'

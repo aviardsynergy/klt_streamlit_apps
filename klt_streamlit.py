@@ -8,7 +8,7 @@ df = pd.read_csv('Pred Nvle Prod.csv')
 df['date'] = pd.to_datetime(df['PERJOU'])
 df['mois'] = df['date'].dt.to_period('M').astype(str)
 
-mois_disponibles = df['mois'].unique()
+mois_disponibles = sorted(df['mois'].unique())
 mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois', mois_disponibles, default=[])
 
 if mois_selectionnes:

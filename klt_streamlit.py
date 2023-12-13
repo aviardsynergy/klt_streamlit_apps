@@ -7,10 +7,10 @@ df = pd.read_csv('Pred Nvle Prod.csv')
 df['date'] = pd.to_datetime(df['PERJOU'])
 df['mois'] = df['date'].dt.to_period('M')
 
-mois_disponibles = df['mois'].unique().tolist()
-mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois', mois_disponibles, default=mois_disponibles)
+mois_disponibles = df['mois'].astype(str).unique()
+mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois', mois_disponibles, default=[])
 if mois_selectionnes:
-    df_filtre = df[df['mois'].isin(mois_selectionnes)]
+    df_filtre = df[df['mois'].astype(str).isin(mois_selectionnes)]
 else:
     df_filtre = df
 

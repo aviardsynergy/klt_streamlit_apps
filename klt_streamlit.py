@@ -45,17 +45,18 @@ st.pyplot(fig)
 def create_radar_chart(df_filtre, categories):
     N = len(categories)
 
-    # Créer des valeurs fictives pour l'exemple (à adapter selon vos données)
+    # Assurez-vous que le nombre de valeurs correspond au nombre de catégories
+    # Exemple: calcul de trois valeurs différentes pour les trois catégories
     values = [df_filtre['REEL_NPROD'].sum(), df_filtre['PRED_NPROD'].mean(), df_filtre['REEL_NPROD'].max()]
-    values += values[:1]
     
-    angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
-    angles += angles[:1]
+    # Fermer le cercle
+    values += values[:1]
+    angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist() + [0]
     
     radar_fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
     ax.plot(angles, values, color='blue', linewidth=2)
     ax.fill(angles, values, color='blue', alpha=0.25)
-    ax.set_thetagrids(np.degrees(angles[:-1]), categories)
+    ax.set_thetagrids(np.degrees(angles), categories)
 
     return radar_fig
 

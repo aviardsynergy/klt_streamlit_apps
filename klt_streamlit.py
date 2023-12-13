@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
+from math import pi
+
 
 def millions_formatter(x, pos):
     return f'{x / 1e6}M'

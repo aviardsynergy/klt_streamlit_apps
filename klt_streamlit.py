@@ -41,30 +41,33 @@ st.pyplot(fig)
 
 
 
-# Fonction pour créer le graphique radar
-def create_radar_chart(df_filtre, categories):
-    N = len(categories)
+categories = df_filtre['mois'].unique()
+N = len(categories)
 
-    # Assurez-vous que le nombre de valeurs correspond au nombre de catégories
-    # Exemple: calcul de trois valeurs différentes pour les trois catégories
-    values = [df_filtre['REEL_NPROD'].sum(), df_filtre['PRED_NPROD'].mean(), df_filtre['REEL_NPROD'].max()]
-    
-    # Fermer le cercle
-    values += values[:1]
-    angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist() + [0]
-    
-    radar_fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
-    ax.plot(angles, values, color='blue', linewidth=2)
-    ax.fill(angles, values, color='blue', alpha=0.25)
-    ax.set_thetagrids(np.degrees(angles), categories)
+# Calcul des valeurs moyennes pour chaque mois
+avg_reel = df_filtre.groupby('mois')['REEL_NPROD'].mean().reindex(categories, fill_value=0)
+avg_pred = df_filtre.groupby('mois')['PRED_NPROD'].mean().reindex(categories, fill_value=0)
 
-    return radar_fig
-
-# Catégories pour le graphique radar (à adapter selon vos besoins)
-categories = ['Total CA Réel', 'Moyenne CA Prévu', 'Max CA Réel']
+# Préparation des angles pour le graphique radar
+angles = [n / float(N) * 2 * pi for n in range(N)]
+angles += angles[:1]
 
 # Création du graphique radar
-radar_fig = create_radar_chart(df_filtre, categories)
+radar_fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
 
-# Affichage du graphique radar dans Streamlit
+# Tracer la première série (REEL_NPROD)
+values = avg_reel.tolist()
+values += values[:1]
+ax.plot(angles, values, linewidth=2, linestyle='solid', label='REEL_NPROD')
+
+# Tracer la seconde série (PRED_NPROD)
+values = avg_pred.tolist()
+values += values[:1]
+ax.plot(angles, values, linewidth=2, linestyle='solid', label='PRED_NPROD')
+
+# Ajouter les labels pour chaque axe
+ax.set_thetagrids([angle * 180/pi for angle in angles[:-1]], categories)
+
+ax.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
+
 st.pyplot(radar_fig)

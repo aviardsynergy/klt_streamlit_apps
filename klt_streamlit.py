@@ -46,3 +46,27 @@ st.markdown('<strong>Janvier à Septembre : </strong> RAS', unsafe_allow_html=Tr
 st.markdown('<strong>Octobre : </strong> données de prédictions manquantes, le réel est bon. Je vais voir avec Ingrid dans les jours prochains pour rajouter la prédiction', unsafe_allow_html=True)
 st.markdown('<strong>Novembre :</strong> RAS', unsafe_allow_html=True)
 st.markdown('<strong>Décembre :</strong> Le montant mis en REEL_NPROD est l\'objectif du mois', unsafe_allow_html=True)
+
+import requests
+from io import StringIO
+
+csv_url = "https://github.com/aviardsynergy/klt_streamlit_apps/blob/main/Pred%20Nvle%20Prod.csv"
+
+def download_csv(url):
+    response = requests.get(url)
+    response.raise_for_status() 
+    return StringIO(response.text)
+
+
+def main():
+    st.title("Télécharger le fichier CSV")
+
+    # Centrer le bouton sur la page
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        if st.button("Télécharger le CSV"):
+            csv_data = download_csv(csv_url)
+            st.download_button(label="Télécharger", data=csv_data, file_name="data.csv", mime='text/csv')
+
+if __name__ == "__main__":
+    main()

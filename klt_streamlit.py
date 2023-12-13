@@ -57,16 +57,21 @@ def download_csv(url):
     response.raise_for_status() 
     return StringIO(response.text)
 
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 def main():
     st.title("Télécharger le fichier CSV")
 
-    # Centrer le bouton sur la page
-    col1, col2, col3 = st.columns([1,1,1])
+    # Appliquer le CSS personnalisé
+    local_css("style.css")
+
+    # Créer un bouton centré avec CSS
+    col1, col2, col3 = st.columns([1,6,1])
     with col2:
-        if st.button("Télécharger le CSV"):
-            csv_data = download_csv(csv_url)
-            st.download_button(label="Télécharger", data=csv_data, file_name="data.csv", mime='text/csv')
+        button_html = f'<a href="{csv_url}" download="data.csv"><button class="css-button">Télécharger le CSV</button></a>'
+        st.markdown(button_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()

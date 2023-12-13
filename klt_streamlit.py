@@ -61,7 +61,7 @@ def main():
     st.markdown("<h1 style='text-align: center;'>Télécharger le fichier CSV</h1>", unsafe_allow_html=True)
 
     # Centrer le bouton de téléchargement sur la page
-    col1, col2, col3 = st.columns([3,1,3])
+    col1, col2, col3 = st.columns([2,1,2])
     with col2:
         # Utiliser le composant download_button de Streamlit pour un design cohérent
         st.download_button(

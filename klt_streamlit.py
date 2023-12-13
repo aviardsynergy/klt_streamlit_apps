@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
-import altair as alt
 
 
 
@@ -42,24 +41,3 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
 
 ax.legend()
 st.pyplot(fig)
-
-df['REEL_NPROD'] = df['REEL_NPROD'] / 1e6
-df['PRED_NPROD'] = df['PRED_NPROD'] / 1e6
-
-
-line_chart = alt.Chart(df_filtre).mark_line().encode(
-    x='date:T',  # Format de date pour l'axe des abscisses
-    y=alt.Y('REEL_NPROD:Q', title='CA Réel (Millions €)'),  # Quantitative scale
-    color=alt.value('blue'),  # Couleur de la première série
-    tooltip=['date:T', alt.Tooltip('REEL_NPROD:Q', title='CA Réel', format='.2f')]  # Tooltip pour la date et la valeur
-).properties(
-    width=800,
-    height=400
-) + alt.Chart(df_filtre).mark_line().encode(
-    x='date:T',  # Format de date pour l'axe des abscisses
-    y=alt.Y('PRED_NPROD:Q', title='CA Prévu (Millions €)'),  # Quantitative scale
-    color=alt.value('orange'),  # Couleur de la seconde série
-    tooltip=['date:T', alt.Tooltip('PRED_NPROD:Q', title='CA Prévu', format='.2f')]  # Tooltip pour la date et la valeur
-)
-
-st.altair_chart(line_chart, use_container_width=True)

@@ -60,12 +60,17 @@ def download_csv(url):
 def main():
     st.markdown("<h1 style='text-align: center;'>Télécharger le fichier CSV</h1>", unsafe_allow_html=True)
 
-    button_html = f"<a href='{csv_url}' download='data.csv'><button style='display: block; margin-left: auto; margin-right: auto;'>Télécharger le CSV</button></a>"
-    st.markdown(button_html, unsafe_allow_html=True)
-
-    if st.button("Télécharger le CSV"):
-        csv_data = download_csv(csv_url)
-        st.download_button(label="Télécharger", data=csv_data, file_name="data.csv", mime='text/csv')
+    # Centrer le bouton de téléchargement sur la page
+    col1, col2, col3 = st.columns([1,1,1])
+    with col2:
+        # Utiliser le composant download_button de Streamlit pour un design cohérent
+        st.download_button(
+            label="Télécharger le CSV",
+            data=requests.get(csv_url).content,
+            file_name="data.csv",
+            mime='text/csv',
+            key='download-csv'
+        )
 
 if __name__ == "__main__":
     main()

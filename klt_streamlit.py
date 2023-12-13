@@ -22,6 +22,11 @@ ax.set_xlabel('Date')
 ax.set_ylabel('Nouvelle Prod')
 ax.set_title('Nouvelle Prod Réelle et Prédite')
 
-ax.set_xticklabels(ax.get_xticks(), rotation=45)
+ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+
+# Rotation des étiquettes de l'axe des X
+plt.setp(ax.get_xticklabels(), rotation=45, ha='right') 
+
 ax.legend()
 st.pyplot(fig)

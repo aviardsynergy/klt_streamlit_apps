@@ -16,7 +16,6 @@ df = pd.read_csv('Pred Nvle Prod.csv')
 
 df['date'] = pd.to_datetime(df['PERJOU'])
 df['mois'] = df['date'].dt.to_period('M').astype(str)
-df['jour'] = df['date'].dt.strftime('%Y-%m-%d')
 
 mois_disponibles = sorted(df['mois'].unique())
 mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois', mois_disponibles, default=[])
@@ -54,7 +53,7 @@ if N > 0:
     try:
         # Calcul des valeurs moyennes pour chaque mois
         avg_reel = df_filtre.groupby('mois')['REEL_NPROD'].mean().reindex(categories, fill_value=0)
-        avg_pred = df_filtre.groupby('jour')['PRED_NPROD'].mean().reindex(categories, fill_value=0)
+        avg_pred = df_filtre.groupby('mois')['PRED_NPROD'].mean().reindex(categories, fill_value=0)
 
         # Préparation des angles pour le graphique radar
         angles = np.linspace(0, 2 * pi, N, endpoint=False).tolist()

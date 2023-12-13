@@ -41,3 +41,8 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
 
 ax.legend()
 st.pyplot(fig)
+
+streamlit.text('Janvier à Septembre : RAS')
+streamlit.text('Octobre : données de prédictions manquantes, le réel est bon. Je vais voir avec Ingrid dans les jours prochains pour rajouter la prédiction')
+streamlit.text('Novembre : RAS')
+streamlit.text('Décembre : Le montant mis en REEL_NPROD est l'objectif du mois')

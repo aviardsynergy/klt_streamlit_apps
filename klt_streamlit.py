@@ -16,6 +16,7 @@ df = pd.read_csv('Pred Nvle Prod.csv')
 
 df['date'] = pd.to_datetime(df['PERJOU'])
 df['mois'] = df['date'].dt.to_period('M').astype(str)
+df['jour'] = df['date'].dt.strftime('%Y-%m-%d')
 
 mois_disponibles = sorted(df['mois'].unique())
 mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois', mois_disponibles, default=[])
@@ -50,21 +51,24 @@ categories = df_filtre['mois'].unique()
 N = len(categories)
 
 if N > 0:
-    # Calcul des valeurs moyennes ou des sommes de PRED_NPROD pour chaque mois
-    sum_pred = df_filtre.groupby('mois')['PRED_NPROD'].sum().reindex(mois_disponibles, fill_value=0)
+    try:
+        # Calcul des valeurs moyennes pour chaque mois
+        avg_reel = df_filtre.groupby('mois')['REEL_NPROD'].mean().reindex(categories, fill_value=0)
+        avg_pred = df_filtre.groupby('jour')['PRED_NPROD'].mean().reindex(categories, fill_value=0)
 
-    # Préparation des angles pour le graphique radar
-    angles = np.linspace(0, 2 * pi, N, endpoint=False).tolist()
-    angles += angles[:1]  # Fermeture du cercle
+        # Préparation des angles pour le graphique radar
+        angles = np.linspace(0, 2 * pi, N, endpoint=False).tolist()
+        angles += angles[:1]  # Fermeture du cercle
 
-    # Création du graphique radar
-    radar_fig, ax = plt.subplots(figsize=(10, 10), subplot_kw=dict(polar=True))
-    # Tracer la courbe pour PRED_NPROD
-    ax.plot(angles, sum_pred.tolist() + sum_pred.tolist()[:1], linewidth=2, linestyle='solid', label='PRED_NPROD (agrégé par mois)')
-    # Définir les étiquettes pour chaque axe
-    ax.set_thetagrids(np.degrees(angles[:-1]), categories)
-    ax.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
+        # Création du graphique radar
+        radar_fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
+        ax.plot(angles, avg_reel.tolist() + avg_reel.tolist()[:1], linewidth=2, linestyle='solid', label='REEL_NPROD')
+        ax.plot(angles, avg_pred.tolist() + avg_pred.tolist()[:1], linewidth=2, linestyle='solid', label='PRED_NPROD')
+        ax.set_thetagrids(np.degrees(angles[:-1]), categories)
+        ax.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
 
-    st.pyplot(radar_fig)
+        st.pyplot(radar_fig)
+    except Exception as e:
+        st.error(f"Une erreur s'est produite lors de la création du graphique radar: {e}")
 else:
     st.write("Aucun mois sélectionné ou aucune donnée disponible pour les mois sélectionnés.")

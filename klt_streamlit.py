@@ -21,6 +21,7 @@ ax.plot(df_filtre['date'], df_filtre['PRED_NPROD'], label='Pred NProd')
 ax.set_xlabel('Date')
 ax.set_ylabel('Nouvelle Prod')
 ax.set_title('Nouvelle Prod Réelle et Prédite')
-ax.legend()
 
+plt.xticks(rotation=45) 
+ax.legend()
 st.pyplot(fig)

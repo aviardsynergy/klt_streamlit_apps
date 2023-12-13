@@ -51,7 +51,7 @@ N = len(categories)
 
 if N > 0:
     # Calcul des valeurs moyennes ou des sommes de PRED_NPROD pour chaque mois
-    sum_pred = df_filtre.groupby('mois')['PRED_NPROD'].sum().reindex(all_months, fill_value=0)
+    sum_pred = df_filtre.groupby('mois')['PRED_NPROD'].sum().reindex(mois_disponibles, fill_value=0)
 
     # Préparation des angles pour le graphique radar
     angles = np.linspace(0, 2 * pi, N, endpoint=False).tolist()

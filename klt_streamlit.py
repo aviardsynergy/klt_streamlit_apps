@@ -57,10 +57,15 @@ def download_csv(url):
     response.raise_for_status() 
     return StringIO(response.text)
 
-st.markdown("<h3 style='text-align: center;'>Télécharger le fichier CSV</h3> <br>", unsafe_allow_html=True)
+def main():
+    st.markdown("<h1 style='text-align: center;'>Télécharger le fichier CSV</h1>", unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns([1,2,1])
-with col2:
+    button_html = f"<a href='{csv_url}' download='data.csv'><button style='display: block; margin-left: auto; margin-right: auto;'>Télécharger le CSV</button></a>"
+    st.markdown(button_html, unsafe_allow_html=True)
+
     if st.button("Télécharger le CSV"):
         csv_data = download_csv(csv_url)
         st.download_button(label="Télécharger", data=csv_data, file_name="data.csv", mime='text/csv')
+
+if __name__ == "__main__":
+    main()

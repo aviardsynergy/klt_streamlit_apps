@@ -17,10 +17,11 @@ df['mois'] = df['date'].dt.to_period('M').astype(str)
 mois_disponibles = sorted(df['mois'].unique())
 mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois', mois_disponibles, default=[])
 
-if mois_selectionnes:
-    df_filtre = df[df['mois'].isin(mois_selectionnes)]
-else:
-    df_filtre = df 
+df_filtre = df[df['mois'].isin(mois_selectionnes)] if mois_selectionnes else df
+#if mois_selectionnes:
+ #   df_filtre = df[df['mois'].isin(mois_selectionnes)]
+#else:
+ #   df_filtre = df 
 
 fig, ax = plt.subplots()
 ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='Prod Réelle', color='darkblue')
@@ -39,36 +40,27 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
 ax.legend()
 st.pyplot(fig)
 
-# Préparation des données pour le graphique radar
+
+
+
 categories = df_filtre['mois'].unique()
 N = len(categories)
 
-# Vérifier si N est non nul avant de créer le graphique radar
+# Vérification de la présence de données avant de créer le graphique radar
 if N > 0:
     # Calcul des valeurs moyennes pour chaque mois
     avg_reel = df_filtre.groupby('mois')['REEL_NPROD'].mean().reindex(categories, fill_value=0)
     avg_pred = df_filtre.groupby('mois')['PRED_NPROD'].mean().reindex(categories, fill_value=0)
 
     # Préparation des angles pour le graphique radar
-    angles = [n / float(N) * 2 * pi for n in range(N)]
-    angles += angles[:1]
+    angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
+    angles += angles[:1]  # Fermeture du cercle
 
     # Création du graphique radar
     radar_fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
-
-    # Tracer la première série (REEL_NPROD)
-    values = avg_reel.tolist()
-    values += values[:1]
-    ax.plot(angles, values, linewidth=2, linestyle='solid', label='REEL_NPROD')
-
-    # Tracer la seconde série (PRED_NPROD)
-    values = avg_pred.tolist()
-    values += values[:1]
-    ax.plot(angles, values, linewidth=2, linestyle='solid', label='PRED_NPROD')
-
-    # Ajouter les labels pour chaque axe
-    ax.set_thetagrids([angle * 180/pi for angle in angles[:-1]], categories)
-
+    ax.plot(angles, avg_reel.tolist() + avg_reel.tolist()[:1], linewidth=2, linestyle='solid', label='REEL_NPROD')
+    ax.plot(angles, avg_pred.tolist() + avg_pred.tolist()[:1], linewidth=2, linestyle='solid', label='PRED_NPROD')
+    ax.set_thetagrids(np.degrees(angles[:-1]), categories)
     ax.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
 
     st.pyplot(radar_fig)

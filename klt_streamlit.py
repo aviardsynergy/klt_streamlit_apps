@@ -43,6 +43,6 @@ ax.legend()
 st.pyplot(fig)
 
 st.text('<strong>Janvier à Septembre : </strong> RAS', unsafe_allow_html=True)
-st.text(''<strong>Octobre :</strong> données de prédictions manquantes, le réel est bon. Je vais voir avec Ingrid dans les jours prochains pour rajouter la prédiction', unsafe_allow_html=True)
+st.text(''<strong>Octobre : </strong> données de prédictions manquantes, le réel est bon. Je vais voir avec Ingrid dans les jours prochains pour rajouter la prédiction', unsafe_allow_html=True)
 st.text(''<strong>Novembre :</strong> RAS', unsafe_allow_html=True)
 st.text(''<strong>Décembre :</strong> Le montant mis en REEL_NPROD est l\'objectif du mois', unsafe_allow_html=True)

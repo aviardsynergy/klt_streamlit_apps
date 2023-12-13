@@ -22,6 +22,6 @@ ax.set_xlabel('Date')
 ax.set_ylabel('Nouvelle Prod')
 ax.set_title('Nouvelle Prod Réelle et Prédite')
 
-plt.xticks(rotation=45) 
+ax.set_xticklabels(ax.get_xticks(), rotation=45)
 ax.legend()
 st.pyplot(fig)

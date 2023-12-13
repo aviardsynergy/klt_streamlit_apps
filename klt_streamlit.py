@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 
 # Chargement des données
-df = pd.read_csv('chemin_de_votre_fichier.csv')
+df = pd.read_csv('Pred Nvle Prod.csv')
 df['date'] = pd.to_datetime(df['date']).dt.date  # Assurez-vous que la colonne 'date' est de type date
 
 # Convertir les valeurs en millions d'euros pour une meilleure lisibilité

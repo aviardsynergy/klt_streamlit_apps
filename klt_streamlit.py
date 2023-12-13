@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
+import altair as alt
+
 
 
 def millions_formatter(x, pos):
@@ -41,3 +42,16 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
 
 ax.legend()
 st.pyplot(fig)
+
+
+# Créer le graphique linéaire avec tooltips en utilisant Altair
+line_chart = alt.Chart(df_filtre).mark_line().encode(
+    x='date:T',  # Format de date pour l'axe des abscisses
+    y=alt.Y('REEL_NPROD:Q', title='CA Réel (en Millions)'),  # Quantitative scale
+    tooltip=['date:T', 'REEL_NPROD:Q']  # Tooltips pour la date et la valeur
+).properties(
+    width=800,
+    height=400
+)
+
+st.altair_chart(line_chart, use_container_width=True)

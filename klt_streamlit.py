@@ -23,11 +23,11 @@ else:
     df_filtre = df 
 
 fig, ax = plt.subplots()
-ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='N Prod', color='#003f5c')
-ax.plot(df_filtre['date'], df_filtre['PRED_NPROD'], label='Pred NProd', color='#bc5090')
+ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='N Prod', color='darkblue')
+ax.plot(df_filtre['date'], df_filtre['PRED_NPROD'], label='Pred NProd', color='steelblue')
 ax.set_xlabel('Date')
 ax.set_ylabel('Nouvelle Prod (en Millions)')
-ax.set_title('Nouvelle Prod Réelle et Prédite')
+#ax.set_title('Nouvelle Prod Réelle et Prédite')
 
 ax.xaxis.set_major_locator(mdates.AutoDateLocator())
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))

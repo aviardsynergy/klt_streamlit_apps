@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-streamlit.title('Nouvelle Prod : Comparaison Prédiction (Jour) et Réel (Fin de Mois)')
+st.title('Nouvelle Prod : Comparaison Prédiction (Jour) et Réel (Fin de Mois)')
 
 df = pd.read_csv('Pred Nvle Prod.csv')
 

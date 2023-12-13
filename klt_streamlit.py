@@ -61,7 +61,7 @@ def main():
     st.title("Télécharger le fichier CSV")
 
     # Centrer le bouton sur la page
-    col1, col2, col3 = st.columns([1,6,1])
+    col1, col2, col3 = st.columns([1,12,1])
     with col2:
         if st.button("Télécharger le CSV"):
             csv_data = download_csv(csv_url)

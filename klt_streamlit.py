@@ -7,7 +7,7 @@ from matplotlib.ticker import FuncFormatter
 def millions_formatter(x, pos):
     return f'{x / 1e6}M'
 
-st.markdown("<h3 style='text-align: center;'>Nouvelle Prod : Comparaison Prédiction (Jour) et Réel (Fin de Mois)</h3> <br>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Nouvelle Prod : Comparaison Prédiction (Jour) et Réel (Mois)</h3> <br>", unsafe_allow_html=True)
 
 df = pd.read_csv('Pred Nvle Prod.csv')
 
@@ -24,7 +24,7 @@ else:
 
 fig, ax = plt.subplots()
 ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='N Prod', color='darkblue')
-ax.plot(df_filtre['date'], df_filtre['PRED_NPROD'], label='Pred NProd', color='steelblue')
+ax.plot(df_filtre['date'], df_filtre['PRED_NPROD'], label='Pred NProd', color='orange')
 ax.set_xlabel('Date')
 ax.set_ylabel('Nouvelle Prod (en Millions)')
 #ax.set_title('Nouvelle Prod Réelle et Prédite')

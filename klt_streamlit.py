@@ -39,6 +39,9 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
 ax.legend()
 st.pyplot(fig)
 
+
+
+# Fonction pour créer le graphique radar
 def create_radar_chart(df_filtre, categories):
     N = len(categories)
 
@@ -49,14 +52,18 @@ def create_radar_chart(df_filtre, categories):
     angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
     angles += angles[:1]
     
-    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+    radar_fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
     ax.plot(angles, values, color='blue', linewidth=2)
     ax.fill(angles, values, color='blue', alpha=0.25)
     ax.set_thetagrids(np.degrees(angles[:-1]), categories)
 
-    return fig
+    return radar_fig
 
+# Catégories pour le graphique radar (à adapter selon vos besoins)
 categories = ['Total CA Réel', 'Moyenne CA Prévu', 'Max CA Réel']
 
+# Création du graphique radar
 radar_fig = create_radar_chart(df_filtre, categories)
+
+# Affichage du graphique radar dans Streamlit
 st.pyplot(radar_fig)

@@ -83,18 +83,20 @@ df2 = pd.read_csv('Pred CA Services.csv')
 df2['date'] = pd.to_datetime(df2['PERJOU'])
 df2['mois'] = df2['date'].dt.to_period('M').astype(str)
 
-mois_disponibles = sorted(df2['mois'].unique())
-mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois CA Services', mois_disponibles, default=[])
+# Suppression du bloc if mois_selectionnes
 
-df2_filtre = df2[df2['mois'].isin(mois_selectionnes)] if mois_selectionnes else df2
 #if mois_selectionnes:
- #   df2_filtre = df2[df2['mois'].isin(mois_selectionnes)]
+ #  df2_filtre = df2[df2['mois'].isin(mois_selectionnes)]
 #else:
- #   df2_filtre = df2 
+ #  df2_filtre = df2
+
+# Reéchantillonnage de la série df2_filtre['PRED_NPROD']
+
+df2_filtre_resample = df2_filtre.resample('D')['PRED_NPROD'].mean()
 
 fig, ax = plt.subplots()
-ax.plot(df_filtre['date'], df2_filtre['REEL_CA_SERVICES'], label='CA Serv Réel', color='darkblue')
-ax.plot(df_filtre['date'], df2_filtre['PRED_CA_SERVICES'], label='Prédiction', color='coral')
+ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='CA Serv Réel', color='darkblue')
+ax.plot(df_filtre['date'], df2_filtre_resample, label='Prédiction', color='coral')
 ax.set_xlabel('Date')
 ax.set_ylabel('CA Services (en Millions)')
 #ax.set_title('CA Services Réelle et Prédite')
@@ -104,7 +106,7 @@ ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
 
 ax.yaxis.set_major_formatter(FuncFormatter(millions_formatter))
 
-plt.setp(ax.get_xticklabels(), rotation=45, ha='right') 
+plt.setp(ax.get_xticklabels(), rotation=45, ha='right') 
 
 ax.legend()
 st.pyplot(fig)

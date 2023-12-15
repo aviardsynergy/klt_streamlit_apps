@@ -71,37 +71,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-#PARTIE CA SERVICES
-
-st.markdown("<h2 style='text-align: center;'>CA Services : Comparaison Prédiction (Jour) et Réel (Mois)</h2> <br>", unsafe_allow_html=True)
-
-df2 = pd.read_csv('Pred CA Services.csv')
-
-df2['date'] = pd.to_datetime(df2['PERJOU'])
-df2['mois'] = df2['date'].dt.to_period('M').astype(str)
-
-if mois_selectionnes:
-   df2_filtre = df2[df2['mois'].isin(mois_selectionnes)]
-else:
-   df2_filtre = df2
-
-df2_filtre_resample = df2_filtre.resample('D')['PRED_NPROD'].mean()
-
-fig, ax = plt.subplots()
-ax.plot(df_filtre['date'], df_filtre['REEL_NPROD'], label='CA Serv Réel', color='darkblue')
-ax.plot(df_filtre['date'], df2_filtre_resample, label='Prédiction', color='coral')
-ax.set_xlabel('Date')
-ax.set_ylabel('CA Services (en Millions)')
-#ax.set_title('CA Services Réelle et Prédite')
-
-ax.xaxis.set_major_locator(mdates.AutoDateLocator())
-ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-
-ax.yaxis.set_major_formatter(FuncFormatter(millions_formatter))
-
-plt.setp(ax.get_xticklabels(), rotation=45, ha='right') 
-
-ax.legend()
-st.pyplot(fig)

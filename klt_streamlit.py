@@ -90,8 +90,8 @@ df2_filtre = df2[df2['mois'].isin(mois_selectionnes)] if mois_selectionnes else 
  #   df2_filtre = df2 
 
 fig, ax = plt.subplots()
-ax.plot(df_filtre['date'], df2_filtre['REEL_NPROD'], label='CA Serv Réel', color='darkblue')
-ax.plot(df_filtre['date'], df2_filtre['PRED_NPROD'], label='Prédiction', color='coral')
+ax.plot(df_filtre['date'], df2_filtre['REEL_CA_SERVICES'], label='CA Serv Réel', color='darkblue')
+ax.plot(df_filtre['date'], df2_filtre['PRED_CA_SERVICES'], label='Prédiction', color='coral')
 ax.set_xlabel('Date')
 ax.set_ylabel('CA Services (en Millions)')
 #ax.set_title('CA Services Réelle et Prédite')

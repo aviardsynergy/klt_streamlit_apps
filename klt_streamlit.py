@@ -83,6 +83,9 @@ df2 = pd.read_csv('Pred CA Services.csv')
 df2['date'] = pd.to_datetime(df2['PERJOU'])
 df2['mois'] = df2['date'].dt.to_period('M').astype(str)
 
+mois_disponibles = sorted(df2['mois'].unique())
+mois_selectionnes = st.sidebar.multiselect('Sélectionnez les mois CA Services', mois_disponibles, default=[])
+
 df2_filtre = df2[df2['mois'].isin(mois_selectionnes)] if mois_selectionnes else df2
 #if mois_selectionnes:
  #   df2_filtre = df2[df2['mois'].isin(mois_selectionnes)]

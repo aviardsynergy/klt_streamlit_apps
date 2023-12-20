@@ -41,15 +41,13 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
 ax.legend()
 st.pyplot(fig)
 
-st.markdown('<strong>Janvier à Septembre : </strong> RAS', unsafe_allow_html=True)
-st.markdown('<strong>Octobre : </strong> données de prédictions manquantes, le réel est bon. Je vais voir avec Ingrid dans les jours prochains pour rajouter la prédiction', unsafe_allow_html=True)
-st.markdown('<strong>Novembre :</strong> RAS', unsafe_allow_html=True)
+st.markdown('<strong>Janvier à Novembre : </strong> RAS', unsafe_allow_html=True)
 st.markdown('<strong>Décembre :</strong> Le montant mis en REEL_NPROD est l\'objectif du mois', unsafe_allow_html=True)
 
 import requests
 from io import StringIO
 
-csv_url = "https://raw.githubusercontent.com/aviardsynergy/klt_streamlit_apps/main/Pred%20Nvle%20Prod.csv?token=GHSAT0AAAAAACLRX5DRQRPVQCG67PFWQRRAZL3BD6Q"
+csv_url = "https://raw.githubusercontent.com/aviardsynergy/klt_streamlit_apps/main/Pred%20Nvle%20Prod.csv?token=GHSAT0AAAAAACLRX5DQ7EJFF5HLJLOW2674ZMCVDXA"
 
 def download_csv(url):
     response = requests.get(url)

@@ -47,7 +47,7 @@ st.markdown('<strong>Décembre :</strong> Le montant mis en REEL_NPROD est l\'ob
 import requests
 from io import StringIO
 
-csv_url = "https://raw.githubusercontent.com/aviardsynergy/klt_streamlit_apps/main/Pred%20Nvle%20Prod.csv?token=GHSAT0AAAAAACLRX5DRKFZZU4SKBFAJT5B6ZMDB5WA"
+csv_url = "https://raw.githubusercontent.com/aviardsynergy/klt_streamlit_apps/main/Pred%20Nvle%20Prod.csv"
 
 def download_csv(url):
     response = requests.get(url)
